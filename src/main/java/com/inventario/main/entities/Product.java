@@ -1,6 +1,8 @@
 package com.inventario.main.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,46 +23,64 @@ public class Product implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idProduct;
 	private String productName;
-	private String codebar;
 	@ManyToOne
-	@JoinColumn(name = "address_id")
-	private Address address;
+	@JoinColumn(name = "group_product_id")
+	private GroupProduct groupProduct;
+	private String codebar;
+	@OneToMany(mappedBy="product")
+	List<ProductAddress> productAddress;
 	
 	public Product() {
 	}
-	
-	public Product(Long idProduct, String productName, String codebar, Address address) {
-		super();
+
+	public Product(Long idProduct, String productName, GroupProduct groupProduct, String codebar,
+			List<ProductAddress> productAddress) {
 		this.idProduct = idProduct;
 		this.productName = productName;
+		this.groupProduct = groupProduct;
 		this.codebar = codebar;
-		this.address = address;
+		this.productAddress = productAddress;
 	}
+
 
 	public Long getIdProduct() {
 		return idProduct;
 	}
+
 	public void setIdProduct(Long idProduct) {
 		this.idProduct = idProduct;
 	}
+
 	public String getProductName() {
 		return productName;
 	}
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
+	public GroupProduct getGroupProduct() {
+		return groupProduct;
+	}
+
+	public void setGroupProduct(GroupProduct groupProduct) {
+		this.groupProduct = groupProduct;
+	}
+
 	public String getCodebar() {
 		return codebar;
 	}
+
 	public void setCodebar(String codebar) {
 		this.codebar = codebar;
 	}
-	public Address getAddress() {
-		return address;
+
+	public List<ProductAddress> getProductAddress() {
+		return productAddress;
 	}
 
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setProductAddress(List<ProductAddress> productAddress) {
+		this.productAddress = productAddress;
 	}
 
 	@Override

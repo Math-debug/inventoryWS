@@ -1,12 +1,16 @@
 package com.inventario.main.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_address")
@@ -21,6 +25,9 @@ public class Address implements Serializable{
 	private String building;
 	private String apartment;
 	private String level;
+	@JsonIgnore
+	@OneToMany(mappedBy="address")
+	List<ProductAddress> productAddress;
 	
 	Address(){
 	}
@@ -33,6 +40,13 @@ public class Address implements Serializable{
 		this.apartment = apartment;
 		this.level = level;
 	}
+	public Address(String street, String building, String apartment, String level) {
+		this.street = street;
+		this.building = building;
+		this.apartment = apartment;
+		this.level = level;
+	}
+
 
 	public Long getIdAddress() {
 		return idAddress;
@@ -72,6 +86,14 @@ public class Address implements Serializable{
 
 	public void setLevel(String level) {
 		this.level = level;
+	}
+
+	public List<ProductAddress> getProductAddress() {
+		return productAddress;
+	}
+
+	public void setProductAddress(List<ProductAddress> productAddress) {
+		this.productAddress = productAddress;
 	}
 
 	@Override
