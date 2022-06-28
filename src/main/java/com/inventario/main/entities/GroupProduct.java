@@ -26,6 +26,9 @@ public class GroupProduct implements Serializable{
 		this.idGroupProduct = idGroupProduct;
 		this.productGroupName = productGroupName;
 	}
+	public GroupProduct(String productGroupName) {
+		this.productGroupName = productGroupName;
+	}
 
 
 
