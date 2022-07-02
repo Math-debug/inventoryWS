@@ -1,6 +1,7 @@
 package com.inventario.main.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,11 +11,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "tb_users")
-public class User implements Serializable{
+public class User implements Serializable, UserDetails{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -97,6 +102,42 @@ public class User implements Serializable{
 				return false;
 		} else if (!idUser.equals(other.idUser))
 			return false;
+		return true;
+	}
+	@JsonIgnore
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@JsonIgnore
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.userName;
+	}
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@JsonIgnore
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@JsonIgnore
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+	@JsonIgnore
+	@Override
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 }
