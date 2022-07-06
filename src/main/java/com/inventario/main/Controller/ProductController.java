@@ -35,7 +35,7 @@ public class ProductController {
 		return ResponseEntity.ok().body(obj);
 	}
 	@PostMapping
-	public ResponseEntity<Product> insert (@RequestBody Product obj){
+	public ResponseEntity<Product> insert (@RequestBody Product obj) throws Exception{
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getIdProduct()).toUri();

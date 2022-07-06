@@ -25,6 +25,7 @@ public class UserGroup implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "userGroup")
 	private List <User> users;
+	private Boolean isAdmin;
 	
 	UserGroup(){
 	}
@@ -63,6 +64,16 @@ public class UserGroup implements Serializable{
 
 	public void setUsers(List<User> users) {
 		this.users = users;
+	}
+
+
+	public Boolean isAdmin() {
+		return isAdmin;
+	}
+
+
+	public void setAdmin(Boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 
 

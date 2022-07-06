@@ -3,6 +3,8 @@ package com.inventario.main.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,7 @@ import com.inventario.main.repositories.ProductRepository;
 
 @Service
 public class ProductService {
+	private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
 	@Autowired
 	private ProductRepository repository;
@@ -37,6 +40,15 @@ public class ProductService {
 	}
 
 	public Product insert(Product obj) {
+		List<Product> products = repository.findByCodebar(obj.getCodebar());
+		try {
+		if(!products.isEmpty()) {
+			throw new Exception("Codigo de barras "+obj.getCodebar()+" ja cadastrado");
+		}
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+			return null;
+		}
 		if (obj.getGroupProduct() != null && obj.getGroupProduct().getProductGroupName() != null
 				&& obj.getGroupProduct().getIdGroupProduct() == null) {
 			List<GroupProduct> groupProduct = groupProductRepository

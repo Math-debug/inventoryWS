@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,7 +36,8 @@ public class UserGroupController {
 		return ResponseEntity.ok().body(obj);
 	}
 	@PostMapping
-	public ResponseEntity<UserGroup> insert (@RequestBody UserGroup obj){
+	public ResponseEntity<UserGroup> insert (@RequestParam(required=false) Boolean isAdmin, @RequestBody UserGroup obj){
+		obj.setAdmin(isAdmin == null ? obj.isAdmin() : isAdmin);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getIdUserGroup()).toUri();
