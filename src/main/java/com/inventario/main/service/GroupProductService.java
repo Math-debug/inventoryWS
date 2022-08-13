@@ -24,7 +24,12 @@ public class GroupProductService {
 		return obj.get();
 	}
 	
-	public GroupProduct insert (GroupProduct obj) {
+	public GroupProduct insert (GroupProduct obj) throws Exception {
+		List<GroupProduct> groups = repository.findByProductGroupName(obj.getProductGroupName());
+		if(groups.isEmpty()) {
 		return repository.save(obj);
+		} else {
+			throw new Exception("Grupo ja cadastrado");
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.inventario.main.service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,8 @@ public class CountingService {
 	}
 	
 	public Counting insert (Counting obj) {
+		Instant date = Instant.now();
+		obj.setStartCounting(date);
 		return repository.save(obj);
 	}
 }

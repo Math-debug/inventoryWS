@@ -34,7 +34,7 @@ public class GroupProductController {
 		return ResponseEntity.ok().body(obj);
 	}
 	@PostMapping
-	public ResponseEntity<GroupProduct> insert (@RequestBody GroupProduct obj){
+	public ResponseEntity<GroupProduct> insert (@RequestBody GroupProduct obj) throws Exception{
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(obj.getIdGroupProduct()).toUri();
